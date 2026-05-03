@@ -39,7 +39,7 @@ volgroup vg0 pv.01
 logvol / --vgname=vg0 --name=root --fstype=xfs --size=8192 --grow
 logvol swap --vgname=vg0 --name=swap --fstype=swap --size=4096
 
-bootloader --boot-drive=nvme0n1
+bootloader --boot-drive=nvme0n1 --append="loglevel=3"
 
 # Packages
 %packages
@@ -47,11 +47,15 @@ bootloader --boot-drive=nvme0n1
 qemu-kvm
 libvirt
 virt-install
+ansible-core
 %end
 
-# Post-install
-%post
+%post --log=/root/ks-post.log
 systemctl enable libvirtd
+
+# Run Ansible pull
+#ansible-pull -U https://github.com/antios/home-server.git -i localhost, site.yml
+
 %end
 
 reboot
