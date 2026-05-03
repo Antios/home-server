@@ -4,23 +4,30 @@
 text
 cdrom
 
+# Accept EULA
+eula --agreed
+
 # System language
 lang en_CA.UTF-8
-keyboard us
+keyboard --xlayouts='us'
 
 # Timezone
 timezone America/Halifax --utc
 
-# Root password (plaintext for now—fix later)
+# Root password
 rootpw --iscrypted $ROOT_PASSWORD_HASH
 
 # Create user
 user --name=micomeau --password=$MICOMEAU_PASSWORD_HASH --iscrypted --groups=wheel
 
 # Network
-network --bootproto=dhcp --device=link --activate
+network --bootproto=dhcp --device=link --activate --onboot=yes
 
-# Install to first disk
+# Security
+firewall --enabled --ssh
+selinux --enforcing
+
+# Install to NVMe drive
 zerombr
 ignoredisk --only-use=nvme0n1
 clearpart --all --initlabel --drives=nvme0n1
@@ -30,6 +37,7 @@ part pv.01 --fstype=lvmpv --size=1 --grow --ondisk=nvme0n1
 
 volgroup vg0 pv.01
 logvol / --vgname=vg0 --name=root --fstype=xfs --size=8192 --grow
+logvol swap --vgname=vg0 --name=swap --fstype=swap --size=4096
 
 bootloader --boot-drive=nvme0n1
 
@@ -45,3 +53,5 @@ virt-install
 %post
 systemctl enable libvirtd
 %end
+
+reboot
