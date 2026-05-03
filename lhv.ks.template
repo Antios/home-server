@@ -31,7 +31,7 @@ part pv.01 --size=1 --grow --ondisk=nvme0n1
 volgroup vg0 pv.01
 logvol / --vgname=vg0 --name=root --fstype=xfs --size=8192 --grow
 
-bootloader --location=partition --boot-drive=nvme0n1
+bootloader --boot-drive=nvme0n1
 
 # Packages
 %packages
