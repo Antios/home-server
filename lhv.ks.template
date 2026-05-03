@@ -2,7 +2,7 @@
 
 # Install mode
 text
-harddrive --partition=LABEL=RHEL-9-7-0- --dir=/ssw
+harddrive --partition=LABEL=RHEL-9-7-0- --dir=/
 
 # Accept EULA
 eula --agreed
