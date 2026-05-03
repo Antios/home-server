@@ -21,6 +21,7 @@ user --name=micomeau --password=$MICOMEAU_PASSWORD_HASH --iscrypted --groups=whe
 network --bootproto=dhcp --device=link --activate
 
 # Install to first disk
+clearpart --all --initlabel --drives=nvme0n1
 ignoredisk --only-use=nvme0n1
 autopart
 
