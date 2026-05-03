@@ -21,7 +21,7 @@ rootpw --iscrypted $ROOT_PASSWORD_HASH
 user --name=micomeau --password=$MICOMEAU_PASSWORD_HASH --iscrypted --groups=wheel
 
 # Network
-network --bootproto=dhcp --device=link --activate --onboot=yes
+network --bootproto=static --ip=192.168.2.5 --netmask=255.255.255.0 --gateway=192.168.2.1 --nameserver=8.8.8.8,1.1.1.1 --device=link --activate --onboot=yes
 
 # Security
 firewall --enabled --ssh
