@@ -22,8 +22,9 @@ network --bootproto=dhcp --device=link --activate
 
 # Install to first disk
 ignoredisk --only-use=/dev/nvme0n1
-clearpart --all --initlabel --drives=/dev/nvme0n1
 zerombr
+clearpart --all --initlabel --drives=/dev/nvme0n1
+
 
 autopart --type=lvm --fstype=xfs
 
