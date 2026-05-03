@@ -1,0 +1,28 @@
+- name: Install virtualization packages
+  dnf:
+    name:
+      - qemu-kvm
+      - libvirt
+      - virt-install
+      - virt-manager
+      - libguestfs-tools
+    state: present
+
+- name: Enable and start libvirtd
+  service:
+    name: libvirtd
+    state: started
+    enabled: true
+
+- name: Allow libvirt through firewall
+  firewalld:
+    service: libvirt
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: Add user to libvirt group
+  user:
+    name: micomeau
+    groups: libvirt
+    append: true

@@ -1,0 +1,30 @@
+- name: Install common packages
+  dnf:
+    name:
+      - vim-enhanced
+      - bash-completion
+      - tmux
+      - git
+      - curl
+      - wget
+      - htop
+      - tree
+      - unzip
+      - rsync
+    state: present
+
+- name: Suppress noisy kernel messages
+  command: grubby --update-kernel=ALL --args="loglevel=3"
+  changed_when: false
+
+- name: Disable wifi
+  copy:
+    content: "blacklist iwlwifi"
+    dest: /etc/modprobe.d/no-wifi.conf
+    mode: '0644'
+
+- name: Enable and start sshd
+  service:
+    name: sshd
+    state: started
+    enabled: true

@@ -1,0 +1,11 @@
+- name: Apply base config to all nodes
+  hosts: all
+  become: true
+  roles:
+    - common
+
+- name: Configure hypervisor
+  hosts: hypervisor
+  become: true
+  roles:
+    - libvirt
