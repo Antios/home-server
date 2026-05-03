@@ -21,12 +21,13 @@ user --name=micomeau --password=$MICOMEAU_PASSWORD_HASH --iscrypted --groups=whe
 network --bootproto=dhcp --device=link --activate
 
 # Install to first disk
-ignoredisk --only-use=/dev/nvme0n1
-zerombr
-clearpart --all --initlabel --drives=/dev/nvme0n1
-
-
-autopart --type=lvm --fstype=xfs
+ignoredisk --only-use=nvme0n1
+clearpart --all --initlabel --drives=nvme0n1
+part /boot/efi --fstype=efi --size=600 --ondisk=nvme0n1
+part /boot --fstype=xfs --size=1024 --ondisk=nvme0n1
+part pv.01 --size=1 --grow --ondisk=nvme0n1
+volgroup vg0 pv.01
+logvol / --vgname=vg0 --name=root --fstype=xfs --size=8192 --grow
 
 # Bootloader
 bootloader --location=mbr
