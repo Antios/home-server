@@ -1,0 +1,43 @@
+name: Build Kickstart
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install envsubst
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Render Kickstart file
+        run: |
+          export ROOT_PASSWORD_HASH="${{ secrets.ROOT_PASSWORD_HASH }}"
+          export USER_PASSWORD_HASH="${{ secrets.MICOMEAU_PASSWORD_HASH }}"
+          envsubst < lhv.ks.template > lhv.ks
+
+      - name: Prepare Pages folder
+        run: |
+          mkdir public
+          cp lhv.ks public/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
