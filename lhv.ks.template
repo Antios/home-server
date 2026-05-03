@@ -25,7 +25,7 @@ ignoredisk --only-use=/dev/nvme0n1
 clearpart --all --initlabel --drives=/dev/nvme0n1
 zerombr
 
-autopart --type=lvm -fstype=xfs
+autopart --type=lvm --fstype=xfs
 
 # Bootloader
 bootloader --location=mbr
