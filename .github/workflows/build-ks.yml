@@ -18,7 +18,7 @@ jobs:
       - name: Render Kickstart file
         run: |
           export ROOT_PASSWORD_HASH="${{ secrets.ROOT_PASSWORD_HASH }}"
-          export USER_PASSWORD_HASH="${{ secrets.MICOMEAU_PASSWORD_HASH }}"
+          export MICOMEAU_PASSWORD_HASH="${{ secrets.MICOMEAU_PASSWORD_HASH }}"
           envsubst < lhv.ks.template > lhv.ks
 
       - name: Prepare Pages folder
