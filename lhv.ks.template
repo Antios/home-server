@@ -51,6 +51,8 @@ ansible-core
 %end
 
 %post --log=/root/ks-post.log
+
+systemctl enable sshd
 systemctl enable libvirtd
 
 # Run Ansible pull
