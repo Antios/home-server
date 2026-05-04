@@ -54,7 +54,7 @@ export LANG=en_CA.UTF-8
 export LC_ALL=en_CA.UTF-8
 
 # Run Ansible pull
-ansible-pull -U https://github.com/antios/home-server.git -i inventory install.yml >> /root/ansible-pull.log 2>&1
+ansible-pull -U https://github.com/antios/home-server.git -i inventory.ini install.yml >> /root/ansible-pull.log 2>&1
 
 %end
 
