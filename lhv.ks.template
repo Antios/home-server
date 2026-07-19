@@ -44,7 +44,7 @@ bootloader --boot-drive=nvme0n1
 # Packages
 %packages
 @^minimal-environment
-ansible-core
+ansible
 %end
 
 %post --log=/root/ks-post.log
