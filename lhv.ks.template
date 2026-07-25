@@ -4,6 +4,9 @@
 text
 harddrive --partition=LABEL=RHEL-9-7-0- --dir=/
 
+repo --name=BaseOS --baseurl=file:///run/install/repo/BaseOS
+repo --name=AppStream --baseurl=file:///run/install/repo/AppStream
+
 # Accept EULA
 eula --agreed
 
