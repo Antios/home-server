@@ -4,7 +4,6 @@
       - vim-enhanced
       - bash-completion
       - tmux
-      - git
       - curl
       - wget
       - htop
